@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const urlroute = require("./routes/url");
+require("dotenv").config();
 
 const app = express();
 app.use(
@@ -12,10 +13,7 @@ app.use(
 app.use(express.json());
 
 mongoose.set("strictQuery", false);
-const db =
-  "mongodb+srv://yashmulik2005:LyTakvmP0aahESYO@cluster0.yy2tfix.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
-//yashmulik2005
-//LyTakvmP0aahESYO
+const db = process.env.db_url;
 mongoose
   .connect(db)
   .then(() => {
