@@ -14,6 +14,8 @@ app.use(express.json());
 
 mongoose.set("strictQuery", false);
 const db = process.env.db_url;
+console.log("db", db);
+
 mongoose
   .connect(db, {
     useNewUrlParser: true,
