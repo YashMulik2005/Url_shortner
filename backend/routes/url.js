@@ -33,8 +33,9 @@ router.post("/short", async (req, res) => {
       data: { url: `${BASE_URL}/url/${shortUrl}` },
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return res.status(500).json({
+      message: err?.message || "Something went wrong",
       error: "Internal server error",
     });
   }
