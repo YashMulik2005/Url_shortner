@@ -8,6 +8,7 @@ function UrlShortener() {
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
   const [autoPaste, setAutoPaste] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (autoPaste) {
@@ -25,6 +26,8 @@ function UrlShortener() {
 
     try {
       setError("");
+      setLoading(true);
+      setShortUrl(null);
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/url/short`,
         {
@@ -36,6 +39,8 @@ function UrlShortener() {
     } catch (err) {
       setError("Failed to shorten the URL. Try again.");
       console.error("Error:", err);
+    } finally {
+      setLoading(false); // 🆕
     }
   };
 
@@ -85,13 +90,15 @@ function UrlShortener() {
             />
             <button
               onClick={handleShorten}
-              className="px-6 py-3 text-sm hidden md:block rounded-r-full bg-blue-600 text-white font-semibold shadow hover:bg-blue-700 transition"
+              disabled={loading}
+              className="px-6 py-3 text-sm hidden md:block rounded-r-full bg-blue-600 text-white font-semibold shadow hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Shorten Now!
             </button>
             <button
               onClick={handleShorten}
-              className="px-6 py-3 text-sm md:text-md md:hidden rounded-r-full bg-blue-600 text-white font-semibold shadow hover:bg-blue-700 transition"
+              disabled={loading}
+              className="px-6 py-3 text-sm md:text-md md:hidden rounded-r-full bg-blue-600 text-white font-semibold shadow hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Now!
             </button>
@@ -113,27 +120,54 @@ function UrlShortener() {
             </label>
           </div>
 
-          {shortUrl && (
-            <div className="text-center mt-4">
-              <p className="text-sm text-gray-300 mb-1">Your shortened URL:</p>
-              <div className="flex items-center justify-center gap-3 flex-wrap">
-                <a
-                  href={shortUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-400 hover:underline break-all"
-                >
-                  {shortUrl}
-                </a>
-                <button
-                  onClick={handleCopy}
-                  className="px-3 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-                >
-                  {copied ? "Copied!" : "Copy"}
-                </button>
-              </div>
-            </div>
-          )}
+          <div className="text-center mt-4 min-h-[60px] flex items-center justify-center">
+            {loading ? (
+              <svg
+                className="animate-spin h-6 w-6 text-blue-400"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                ></circle>
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                ></path>
+              </svg>
+            ) : (
+              shortUrl && (
+                <div>
+                  <p className="text-sm text-gray-300 mb-1">
+                    Your shortened URL:
+                  </p>
+                  <div className="flex items-center justify-center gap-3 flex-wrap">
+                    <a
+                      href={shortUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-400 hover:underline break-all"
+                    >
+                      {shortUrl}
+                    </a>
+                    <button
+                      onClick={handleCopy}
+                      className="px-3 py-1 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                    >
+                      {copied ? "Copied!" : "Copy"}
+                    </button>
+                  </div>
+                </div>
+              )
+            )}
+          </div>
         </div>
 
         <div className="absolute bottom-4 w-full text-center text-xs text-gray-500">
