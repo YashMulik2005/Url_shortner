@@ -15,7 +15,10 @@ app.use(express.json());
 mongoose.set("strictQuery", false);
 const db = process.env.db_url;
 mongoose
-  .connect(db)
+  .connect(db, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then(() => {
     console.log("connect");
   })
