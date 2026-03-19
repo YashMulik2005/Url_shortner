@@ -17,7 +17,7 @@ router.post("/short", async (req, res) => {
     const existingUrl = await UrlModel.findOne({ originalUrl });
     if (existingUrl) {
       return res.status(200).json({
-        data: { url: `${BASE_URL}/url/${existingUrl.shortCode}` },
+        data: { url: `${BASE_URL}/api/url/${existingUrl.shortCode}` },
       });
     }
 
@@ -30,7 +30,7 @@ router.post("/short", async (req, res) => {
     await newUrl.save();
 
     return res.status(200).json({
-      data: { url: `${BASE_URL}/url/${shortUrl}` },
+      data: { url: `${BASE_URL}/api/url/${shortUrl}` },
     });
   } catch (err) {
     console.error(err);

@@ -8,7 +8,7 @@ const app = express();
 app.use(
   cors({
     origin: "*",
-  })
+  }),
 );
 app.use(express.json());
 
@@ -28,7 +28,7 @@ mongoose
     console.log(err);
   });
 
-app.use("/url", urlroute);
+app.use("/api/url", urlroute);
 
 app.listen(3000, () => {
   console.log("server is running.");

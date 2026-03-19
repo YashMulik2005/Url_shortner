@@ -29,10 +29,10 @@ function UrlShortener() {
       setLoading(true);
       setShortUrl(null);
       const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/url/short`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/url/short`,
         {
           originalUrl: longUrl,
-        }
+        },
       );
       setShortUrl(response?.data?.data?.url);
       setCopied(false);
@@ -40,7 +40,7 @@ function UrlShortener() {
       setError("Failed to shorten the URL. Try again.");
       console.error("Error:", err);
     } finally {
-      setLoading(false); // 🆕
+      setLoading(false);
     }
   };
 
