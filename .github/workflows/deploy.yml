@@ -38,9 +38,6 @@ jobs:
           script: |
             set -e   # stop on error
 
-            echo "Move to root user"
-            sudo su
-
             echo "Go to project directory"
             cd /home/ubuntu/Url_shortner
 
