@@ -45,8 +45,7 @@ jobs:
             git config --global --add safe.directory /home/ubuntu/Url_shortner
 
             echo "Pull latest code"
-            git fetch origin
-            git reset --hard origin/main
+            git pull origin main
 
             echo "Backend setup"
             cd backend
@@ -62,7 +61,7 @@ jobs:
 
             echo "Update nginx files safely"
             sudo rm -rf /var/www/html/*
-            sudo cp -r /home/ubuntu/Url_shortner/frontend/build/* /var/www/html/
+            sudo cp -r /home/ubuntu/Url_shortner/frontend/dist/* /var/www/html/
 
             echo "Fix permissions"
             sudo chown -R www-data:www-data /var/www/html
