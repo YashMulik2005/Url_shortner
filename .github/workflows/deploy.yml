@@ -41,6 +41,9 @@ jobs:
             echo "Go to project directory"
             cd /home/ubuntu/Url_shortner
 
+            echo "Fix git safe directory issue"
+            git config --global --add safe.directory /home/ubuntu/Url_shortner
+
             echo "Pull latest code"
             git fetch origin
             git reset --hard origin/main
