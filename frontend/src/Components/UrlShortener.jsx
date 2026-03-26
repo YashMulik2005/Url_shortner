@@ -73,7 +73,7 @@ function UrlShortener() {
 
         <div className="w-full max-w-3xl bg-[#161f36] rounded-2xl shadow-2xl p-8 mt-20 relative">
           <h1 className="text-4xl font-bold text-center mb-3 bg-gradient-to-r from-pink-500 via-pink-400 to-blue-600 bg-clip-text text-transparent">
-            Shorten Your Loooong Links :😀
+            Shorten Your Loooong Links :)
           </h1>
           <p className="text-center text-gray-400 mb-8">
             Linkly is an efficient and easy-to-use URL shortening service that
